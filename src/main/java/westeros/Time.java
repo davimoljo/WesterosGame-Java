@@ -1,16 +1,20 @@
+package westeros;
+
 import java.util.*;
 
 public class Time {
-    List<Personagem> personagens = new ArrayList<>();
-    private boolean controladoPorJogador;
-    public Time(boolean ia){
-        controladoPorJogador = ia;
-        if(!controladoPorJogador){
+    protected List<Personagem> personagens = new ArrayList<>();
+    protected int personagensVivos;
+
+    public Time(boolean bot){
+        if(!bot){
             selPersonagem();
         } else{
             aleatorizarSelecao();
         }
+        personagensVivos = personagens.size();
     }
+
     private void selPersonagem(){
         Scanner s = new Scanner(System.in);
 
@@ -19,6 +23,11 @@ public class Time {
             System.out.println("[ 1 ] Stark \n[ 2 ] Lannister \n[ 3 ] Targaryen");
 
             int n = s.nextInt();
+            while (n < 1 || n > 3){
+                System.out.println("Selecione uma casa válida!");
+                n = s.nextInt();
+            }
+
             System.out.println("Insira o nome do seu personagem: ");
             String nome = s.nextLine();
             Personagem p = null;
@@ -67,6 +76,20 @@ public class Time {
                 case 2:
                     personagens.add(new Targaryen(aleatorizarNome()));
                     break;
+            }
+        }
+    }
+
+    public boolean timeDerrotado(){
+        return personagensVivos <= 0;
+    }
+
+    public void eliminaJogador(Personagem p){
+        for (int i = 0; i < personagens.size(); i++) {
+            if(personagens.get(i).equals(p)){
+                personagens.remove(personagens.get(i));
+                personagensVivos--;
+                return;
             }
         }
     }

@@ -1,3 +1,4 @@
+package westeros;
 import java.util.*;
 
 public class Tabuleiro {
@@ -13,11 +14,10 @@ public class Tabuleiro {
         System.out.println("Você deseja jogar contra um computador? [S/N]");
         Scanner s = new Scanner(System.in);
         String ans = s.nextLine();
-        if(ans == "S")
+        if(ans.equals("S") || ans.equals("s"))
             time2 = new Time(true);
         else
             time2 = new Time(false);
-        s.close();
     }
 
     public int distanciaEntrePersonagens(Personagem a, Personagem b){
@@ -26,5 +26,9 @@ public class Tabuleiro {
 
         return Math.max(v1,v2);
 
+    }
+
+    public boolean restaUmTime(){
+        return time1.timeDerrotado() || time2.timeDerrotado();
     }
 }

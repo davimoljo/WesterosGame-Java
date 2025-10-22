@@ -1,17 +1,23 @@
+package westeros;
 import java.util.*;
 
 public class Personagem {
-    private String nome;
-    private int x;
-    private int y;
+    protected String nome;
+    protected int x;
+    protected int y;
     protected int vida;
     protected int ataque;
     protected int defesa;
     protected int alcance;
 
-    public Personagem(String n){
-        nome = n;
+    public Personagem(){}
 
+    @Override
+    public boolean equals(Object o){
+        if (o.getClass() != Personagem.class) {
+            return false;
+        }
+        return this.nome.equals(((Personagem)o).getNome());
     }
 
     String getNome(){
@@ -33,9 +39,19 @@ public class Personagem {
         p.receberDano(ataque); //coloquei isso um pouco na pressa, pode mudar se tiver outra ideia
     }
 
-    public void receberDano(int d){
-        vida -= (d - defesa);
+    public void receberDano(int dano){
+        vida -= (dano - defesa);
     }
 
+    public boolean estaEmAlcance(Personagem p){
+        //Pega a maior distância entre os eixos e retorna verdadeiro se a distância
+        // é menor que o alcance do Personagem
+        int dist = Math.abs(Math.max(p.getX() - this.x, p.getY() - this.y));
 
+        return (dist <= p.alcance);
+    }
+
+    public boolean estaMorto(){
+        return vida <= 0;
+    }
 }
