@@ -2,9 +2,10 @@ package westeros;
 import java.util.*;
 
 public class Tabuleiro {
-    List<List<String>> matrizTabuleiro = new ArrayList<>();
-    Time time1;
-    Time time2;
+    public static final int tabuleiroOrdem = 10;
+    protected List<List<String>> matrizTabuleiro = new ArrayList<>();
+    protected Time time1;
+    protected Time time2;
 
     public Tabuleiro(){
         for(int i = 0; i < 10; i++){
@@ -30,5 +31,11 @@ public class Tabuleiro {
 
     public boolean restaUmTime(){
         return time1.timeDerrotado() || time2.timeDerrotado();
+    }
+
+    public void movimentarPersonagem(Personagem p){
+        List<Personagem> todosP = time1.getPersonagens();
+        todosP.addAll(time2.getPersonagens());
+        p.movimentar(todosP);
     }
 }

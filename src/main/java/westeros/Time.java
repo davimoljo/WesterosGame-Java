@@ -85,12 +85,16 @@ public class Time {
     }
 
     public void eliminaJogador(Personagem p){
-        for (int i = 0; i < personagens.size(); i++) {
-            if(personagens.get(i).equals(p)){
-                personagens.remove(personagens.get(i));
-                personagensVivos--;
+
+        for(Personagem p2 : personagens){
+            if(p2.equals(p)){
+                personagens.remove(p2);
                 return;
             }
         }
+    }
+
+    public List<Personagem> getPersonagens() {
+        return personagens;
     }
 }
