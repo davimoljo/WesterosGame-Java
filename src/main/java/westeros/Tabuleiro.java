@@ -4,8 +4,6 @@ import java.util.*;
 public class Tabuleiro {
     public static final int tabuleiroOrdem = 10;
     protected List<List<String>> matrizTabuleiro = new ArrayList<>();
-    protected Time time1;
-    protected Time time2;
 
     public Tabuleiro(){
         for(int i = 0; i < 10; i++){
@@ -22,15 +20,6 @@ public class Tabuleiro {
 
     }
 
-    public boolean restaUmTime(){
-        return time1.timeDerrotado() || time2.timeDerrotado();
-    }
-
-    public void movimentarPersonagem(Personagem p){
-        List<Personagem> todosP = time1.getPersonagens();
-        todosP.addAll(time2.getPersonagens());
-        p.movimentar(todosP);
-    }
 
     public void imprimirTabuleiro(){
         for(List<String> linha: matrizTabuleiro){
@@ -40,17 +29,58 @@ public class Tabuleiro {
         }
     }
 
-    protected Time getTime1(){
-        return time1;
+    private boolean movimentoValido(String entrada, Personagem p) {
+        int novoX = p.getX();
+        int novoY = p.getY();
+
+        switch (entrada){
+            case "W", "w" -> novoY += 1;
+
+            case "S", "s" -> novoY -= 1;
+
+            case "D", "d" -> novoX += 1;
+
+            case "A", "a" -> novoX -= 1;
+
+            default -> {
+                return false;
+            }
+        }
+
+        if (novoX < 0 || novoY <  0 || novoX >= Tabuleiro.tabuleiroOrdem || novoY >= Tabuleiro.tabuleiroOrdem) {
+            return false;
+        }
+
+
+
+        return true;
     }
 
-    protected Time getTime2(){
-        return time2;
-    }
+    protected void movimentarPersonagem(Personagem p){
+        Scanner s = new Scanner(System.in);
+        System.out.println("Movimentando: " + p.getNome() + "\n Movimente-se com W A S D");
+        String entrada = s.nextLine();
 
-    protected List<Personagem> getTodosPersonagens(){
-        List<Personagem> todosP = time1.getPersonagens();
-        todosP.addAll(time2.getPersonagens());
-        return todosP;
+        while (!movimentoValido(entrada, p)){
+            System.out.println("Movimento invalido");
+            System.out.println("Movimentando: " + p.getNome() + "\n Movimente-se com W A S D");
+            entrada = s.nextLine();
+        }
+
+        switch (entrada) {
+            case "W", "w" -> {
+                p.y += 1;
+            }
+            case "S", "s" -> {
+                p.y -= 1;
+            }
+            case "A", "a" -> {
+                p.x -= 1;
+            }
+            case "D", "d" -> {
+                p.x += 1;
+            }
+        }
+
     }
 }

@@ -37,7 +37,7 @@ public class Jogo {
         p.movimentar(todosP);
     }
 
-    public static Personagem escolherPersonagem(Time time){ //Dei uma ajeitada pra deixar a selecao mais dinamica em relacao aos personagens que estao disponiveis para selecao
+    protected static Personagem escolherPersonagem(Time time){ //Dei uma ajeitada pra deixar a selecao mais dinamica em relacao aos personagens que estao disponiveis para selecao
         List<Personagem> personagensJogaveis = new ArrayList<>();
         System.out.println("Escolha um personagem para agir: ");
 
@@ -68,5 +68,17 @@ public class Jogo {
             //fazer funcao que escolhe a ação do personagem e a executa
         System.out.println("Agindo: ");
         p.imprimeStatus();
+    }
+
+    protected boolean restaUmTime(){
+        return time1.timeDerrotado() || time2.timeDerrotado();
+    }
+
+    protected Time getTime1(){
+        return time1;
+    }
+
+    protected Time getTime2(){
+        return time2;
     }
 }

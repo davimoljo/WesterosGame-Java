@@ -58,65 +58,7 @@ public class Personagem {
         return vida <= 0;
     }
 
-    private boolean movimentoValido(String entrada, List<Personagem> todosPersonagens) {
-        int novoX = this.x;
-        int novoY = this.y;
 
-        switch (entrada){
-            case "W", "w" -> novoY += 1;
-
-            case "S", "s" -> novoY -= 1;
-
-            case "D", "d" -> novoX += 1;
-
-            case "A", "a" -> novoX -= 1;
-
-            default -> {
-                return false;
-            }
-        }
-
-        if (novoX < 0 || novoY <  0 || novoX >= Tabuleiro.tabuleiroOrdem || novoY >= Tabuleiro.tabuleiroOrdem) {
-            return false;
-        }
-
-        for (Personagem p : todosPersonagens) {
-            if (p.getX() == novoX && p.getY() == novoY) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    protected void movimentar(List<Personagem> todosPersonagens){
-        Scanner s = new Scanner(System.in);
-        System.out.println("Movimentando: " + this.getNome() + "\n Movimente-se com W A S D");
-        String entrada = s.nextLine();
-
-        while (!movimentoValido(entrada, todosPersonagens)){
-            System.out.println("Movimento invalido");
-            System.out.println("Movimentando: " + this.getNome() + "\n Movimente-se com W A S D");
-            entrada = s.nextLine();
-        }
-
-        switch (entrada) {
-            case "W", "w" -> {
-                this.y += 1;
-            }
-            case "S", "s" -> {
-                this.y -= 1;
-            }
-            case "A", "a" -> {
-                this.x -= 1;
-            }
-            case "D", "d" -> {
-                this.x += 1;
-            }
-        }
-
-
-    }
 
     public void personagemSelecionado(){
         jaSelecionado = true;
