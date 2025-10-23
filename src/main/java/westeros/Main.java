@@ -13,7 +13,7 @@ public class Main {
             Personagem p1 = Jogo.escolherPersonagem(time1);
 
             if (p1 != null) {
-                Jogo.escolherEAgir(p1);
+                partida.escolherEAgir(p1);
             }
             if (partida.restaUmTime()) break;
             tabuleiro.imprimirTabuleiro();
@@ -22,7 +22,7 @@ public class Main {
             Personagem p2 = Jogo.escolherPersonagem(time2);
 
             if (p2 != null) {
-                Jogo.escolherEAgir(p2);
+                partida.escolherEAgir(p2);
             }
         }
         System.out.println("\nFIM DE JOGO!");

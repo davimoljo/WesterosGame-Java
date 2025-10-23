@@ -9,8 +9,12 @@ public class Personagem {
     protected int ataque;
     protected int defesa;
     protected int alcance;
+    protected boolean bot;
 
-    public Personagem(){}
+    public Personagem(boolean bot){
+        this.bot = bot;
+
+    }
 
     @Override
     public boolean equals(Object o){
@@ -74,14 +78,16 @@ public class Personagem {
         return alvos;
     }
 
-    protected void listaAlvosEAtaca(Time adversarios){
+    protected boolean listaAlvosEAtaca(Time adversarios){
         List<Personagem> alvos = getAlvos(adversarios);
         Scanner sc = new Scanner(System.in);
         int i = 0;
 
         if (alvos.isEmpty()){
             System.out.println("Sem alvos disponíveis");
-            return;
+
+            sc.close();
+            return false;
         }
 
         System.out.println("Selecione o alvo");
@@ -100,5 +106,12 @@ public class Personagem {
         if (alvo.estaMorto()){
             adversarios.eliminaJogador(alvo);
         }
+
+        sc.close();
+        return true;
+    }
+
+    public boolean isBot() {
+        return bot;
     }
 }

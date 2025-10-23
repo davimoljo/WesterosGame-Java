@@ -5,22 +5,12 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Jogo {
-    //aqui é onde o jogo vai rodar efetivamente
-    /*public static void main(String[] args) {
-        Tabuleiro tabuleiro = new Tabuleiro();
-
-        while(!tabuleiro.restaUmTime()){
-            tabuleiro.imprimirTabuleiro();
-            Personagem personagemAcao1 = escolherPersonagem(tabuleiro.getTime1());
-
-
-        }
-    }*/
-
     Time time1;
     Time time2;
+    Tabuleiro tabuleiro;
 
     public Jogo(){
+        tabuleiro = new Tabuleiro();
         time1 = new Time(false);
         System.out.println("Você deseja jogar contra um computador? [S/N]");
         Scanner s = new Scanner(System.in);
@@ -29,13 +19,8 @@ public class Jogo {
             time2 = new Time(true);
         else
             time2 = new Time(false);
+        s.close();
     }
-
-    /*private void movimentarPersonagem(Personagem p){
-        List<Personagem> todosP= time1.getPersonagens();
-        todosP.addAll(time2.getPersonagens());
-        p.movimentar(todosP);
-    }*/
 
     protected static Personagem escolherPersonagem(Time time){
         List<Personagem> personagensJogaveis = new ArrayList<>();
@@ -59,15 +44,34 @@ public class Jogo {
             System.out.println("Seleção inválida!");
             opc = s.nextInt();
         }
-
+        s.close();
         System.out.println(personagensJogaveis.get(opc - 1).getNome() + " selecionado");
         return personagensJogaveis.get(opc - 1);
     }
 
-    public static void escolherEAgir(Personagem p){
+    public void escolherEAgir(Personagem p){
             //fazer funcao que escolhe a ação do personagem e a executa
         System.out.println("Agindo: ");
         p.imprimeStatus();
+        System.out.println("Escolha a ação: \n [ 1 ] - Mover \n [ 2 ] - Atacar");
+        Scanner s = new Scanner(System.in);
+        int acao = s.nextInt();
+        while(acao < 1 || acao > 2){
+            System.out.println("Ação inválida! Escolha novamente: \n [ 1 ] - Mover \n [ 2 ] - Atacar");
+            acao = s.nextInt();
+        }
+
+        if(acao == 1){
+            tabuleiro.movimentarPersonagem(p);
+            
+        } else {
+            boolean atacou = p.listaAlvosEAtaca(time1);
+            if(!atacou){
+                escolherEAgir(p);
+            }
+        }
+
+        s.close();
     }
 
     protected boolean restaUmTime(){

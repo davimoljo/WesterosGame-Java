@@ -1,7 +1,8 @@
 package westeros;
 
 public class Stark extends Personagem{
-    public Stark(String nome){
+    public Stark(String nome, boolean bot){
+        super(bot);
         this.nome = nome;
         vida = 60;
         ataque = 20;

@@ -1,7 +1,8 @@
 package westeros;
 
 public class Lannister extends Personagem {
-    public Lannister(String nome){
+    public Lannister(String nome, boolean bot){
+        super(bot);
         this.nome = nome;
         vida = 50;
         ataque = 20;
