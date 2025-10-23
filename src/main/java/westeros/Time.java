@@ -84,7 +84,7 @@ public class Time {
         return personagensVivos <= 0;
     }
 
-    public void eliminaJogador(Personagem p){
+    protected void eliminaJogador(Personagem p){
 
         for(Personagem p2 : personagens){
             if(p2.equals(p)){
@@ -94,7 +94,13 @@ public class Time {
         }
     }
 
-    public List<Personagem> getPersonagens() {
+    protected List<Personagem> getPersonagens() {
         return personagens;
+    }
+
+    protected void resetSelecao(){
+        for (Personagem p : personagens){
+            p.jaSelecionado = false;
+        }
     }
 }

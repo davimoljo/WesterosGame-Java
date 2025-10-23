@@ -11,14 +11,7 @@ public class Tabuleiro {
         for(int i = 0; i < 10; i++){
             matrizTabuleiro.add(new ArrayList<>());
         }
-        time1 = new Time(false);
-        System.out.println("Você deseja jogar contra um computador? [S/N]");
-        Scanner s = new Scanner(System.in);
-        String ans = s.nextLine();
-        if(ans.equals("S") || ans.equals("s"))
-            time2 = new Time(true);
-        else
-            time2 = new Time(false);
+
     }
 
     public int distanciaEntrePersonagens(Personagem a, Personagem b){
@@ -47,12 +40,17 @@ public class Tabuleiro {
         }
     }
 
-    public Time getTime1(){
+    protected Time getTime1(){
         return time1;
     }
 
-    public Time getTime2(){
+    protected Time getTime2(){
         return time2;
     }
 
+    protected List<Personagem> getTodosPersonagens(){
+        List<Personagem> todosP = time1.getPersonagens();
+        todosP.addAll(time2.getPersonagens());
+        return todosP;
+    }
 }

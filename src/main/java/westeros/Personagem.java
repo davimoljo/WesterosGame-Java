@@ -9,8 +9,11 @@ public class Personagem {
     protected int ataque;
     protected int defesa;
     protected int alcance;
+    protected boolean jaSelecionado;
 
-    public Personagem(){}
+    public Personagem(){
+        jaSelecionado = false;
+    }
 
     @Override
     public boolean equals(Object o){
@@ -55,23 +58,19 @@ public class Personagem {
         return vida <= 0;
     }
 
-    protected boolean movimentoValido(String entrada, List<Personagem> todosPersonagens) {
+    private boolean movimentoValido(String entrada, List<Personagem> todosPersonagens) {
         int novoX = this.x;
         int novoY = this.y;
 
         switch (entrada){
-            case "W", "w" ->{
-                novoY += 1;
-            }
-            case "S", "s" ->{
-                novoY -= 1;
-            }
-            case "D", "d" ->{
-                novoX += 1;
-            }
-            case "A", "a" ->{
-                novoX -= 1;
-            }
+            case "W", "w" -> novoY += 1;
+
+            case "S", "s" -> novoY -= 1;
+
+            case "D", "d" -> novoX += 1;
+
+            case "A", "a" -> novoX -= 1;
+
             default -> {
                 return false;
             }
@@ -119,4 +118,17 @@ public class Personagem {
 
     }
 
+    public void personagemSelecionado(){
+        jaSelecionado = true;
+    }
+
+    public boolean foiSelecionado(){
+        return jaSelecionado;
+    }
+
+    protected void imprimeStatus(){
+        System.out.println(this.getNome() + "(" + this.getClass().getSimpleName() + ")");
+        System.out.println("\tVida: " + this.vida + "\t|| Defesa: " + this.defesa);
+        System.out.println("\tAtaque: " + this.ataque + "\t|| Alcance" + this.alcance);
+    }
 }
