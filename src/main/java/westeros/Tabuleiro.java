@@ -38,4 +38,21 @@ public class Tabuleiro {
         todosP.addAll(time2.getPersonagens());
         p.movimentar(todosP);
     }
+
+    public void imprimirTabuleiro(){
+        for(List<String> linha: matrizTabuleiro){
+            for(String elemento: linha){
+                System.out.println(elemento + "\t");
+            }
+        }
+    }
+
+    public Time getTime1(){
+        return time1;
+    }
+
+    public Time getTime2(){
+        return time2;
+    }
+
 }
