@@ -2,34 +2,28 @@ package westeros;
 import java.util.*;
 
 public class Tabuleiro {
+
     public static final int tabuleiroOrdem = 10;
-    protected List<List<String>> matrizTabuleiro = new ArrayList<>();
+    protected List<List<Casinha>> matrizTabuleiro = new ArrayList<>();
 
     public Tabuleiro(){
-        for(int i = 0; i < 10; i++){
+        for(int i = 0; i < tabuleiroOrdem; i++){
             matrizTabuleiro.add(new ArrayList<>());
-        }
-
-    }
-
-    public int distanciaEntrePersonagens(Personagem a, Personagem b){
-        int v1 = Math.abs(a.getX() - b.getX());
-        int v2 = Math.abs(a.getY() - b.getY());
-
-        return Math.max(v1,v2);
-
-    }
-
-
-    public void imprimirTabuleiro(){
-        for(List<String> linha: matrizTabuleiro){
-            for(String elemento: linha){
-                System.out.println(elemento + "\t");
+            for(int j = 0; j < tabuleiroOrdem; j++){
+                matrizTabuleiro.get(i).add(new Casinha());
             }
         }
     }
 
-    private boolean movimentoValido(String entrada, Personagem p) {
+    public void imprimirTabuleiro(){
+        for(List<Casinha> linha : matrizTabuleiro){
+            for(Casinha elemento : linha){
+                elemento.imprimeCasinha();
+            }
+        }
+    }
+
+    protected boolean movimentoValido(String entrada, Personagem p) {
         int novoX = p.getX();
         int novoY = p.getY();
 
@@ -51,9 +45,7 @@ public class Tabuleiro {
             return false;
         }
 
-
-
-        return true;
+        return !matrizTabuleiro.get(novoX).get(novoY).temPersonagem();
     }
 
     protected void movimentarPersonagem(Personagem p){
@@ -69,16 +61,24 @@ public class Tabuleiro {
 
         switch (entrada) {
             case "W", "w" -> {
+                matrizTabuleiro.get(p.getX()).get(p.getY()).retiraPersonagem();
                 p.y += 1;
+                matrizTabuleiro.get(p.getX()).get(p.getY()).adicionaPersonagem(p);
             }
             case "S", "s" -> {
+                matrizTabuleiro.get(p.getX()).get(p.getY()).retiraPersonagem();
                 p.y -= 1;
+                matrizTabuleiro.get(p.getX()).get(p.getY()).adicionaPersonagem(p);
             }
             case "A", "a" -> {
+                matrizTabuleiro.get(p.getX()).get(p.getY()).retiraPersonagem();
                 p.x -= 1;
+                matrizTabuleiro.get(p.getX()).get(p.getY()).adicionaPersonagem(p);
             }
             case "D", "d" -> {
+                matrizTabuleiro.get(p.getX()).get(p.getY()).retiraPersonagem();
                 p.x += 1;
+                matrizTabuleiro.get(p.getX()).get(p.getY()).adicionaPersonagem(p);
             }
         }
 
