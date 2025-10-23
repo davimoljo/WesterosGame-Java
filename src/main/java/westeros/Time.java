@@ -5,11 +5,14 @@ import java.util.*;
 public class Time {
     protected List<Personagem> personagens = new ArrayList<>();
     protected int personagensVivos;
+    private boolean bot;
 
     public Time(boolean bot){
         if(!bot){
+            this.bot = false;
             selPersonagem();
         } else{
+            this.bot = true;
             aleatorizarSelecao();
         }
         personagensVivos = personagens.size();
@@ -34,13 +37,13 @@ public class Time {
 
             switch (n){
                 case 1:
-                    p = new Stark(nome);
+                    p = new Stark(nome, bot);
                     break;
                 case 2:
-                    p = new Lannister(nome);
+                    p = new Lannister(nome, bot);
                     break;
                 case 3:
-                    p = new Targaryen(nome);
+                    p = new Targaryen(nome, bot);
                     break;
             }
             personagens.add(p);
@@ -68,13 +71,13 @@ public class Time {
             int num = random.nextInt(3);
             switch(num){
                 case 0:
-                    personagens.add(new Stark(aleatorizarNome()));
+                    personagens.add(new Stark(aleatorizarNome(), bot));
                     break;
                 case 1:
-                    personagens.add(new Lannister(aleatorizarNome()));
+                    personagens.add(new Lannister(aleatorizarNome(), bot));
                     break;
                 case 2:
-                    personagens.add(new Targaryen(aleatorizarNome()));
+                    personagens.add(new Targaryen(aleatorizarNome(), bot));
                     break;
             }
         }
@@ -96,6 +99,10 @@ public class Time {
 
     protected List<Personagem> getPersonagens() {
         return personagens;
+    }
+
+    public boolean isBot() {
+        return bot;
     }
 
 }

@@ -1,7 +1,8 @@
 package westeros;
 
 public class Targaryen extends Personagem{
-    Targaryen(String nome){
+    Targaryen(String nome, boolean bot){
+        super(bot);
         this.nome = nome;
         vida = 45;
         ataque = 20;

@@ -49,7 +49,8 @@ public class Tabuleiro {
     }
 
     protected void movimentarPersonagem(Personagem p){
-        Scanner s = new Scanner(System.in);
+        if (!p.isBot()){
+                    Scanner s = new Scanner(System.in);
         System.out.println("Movimentando: " + p.getNome() + "\n Movimente-se com W A S D");
         String entrada = s.nextLine();
 
@@ -82,6 +83,37 @@ public class Tabuleiro {
                 matrizTabuleiro.get(p.getX()).get(p.getY()).adicionaPersonagem(p);
             }
         }
+        } else {
+            Random random = new Random();
+            String[] movimentos = {"W", "A", "S", "D"};
+            String movimentoEscolhido = movimentos[random.nextInt(movimentos.length)];
 
+            while (!movimentoValido(movimentoEscolhido, p)) {
+                movimentoEscolhido = movimentos[random.nextInt(movimentos.length)];
+            }
+
+            switch (movimentoEscolhido) {
+                case "W" -> {
+                    matrizTabuleiro.get(p.getX()).get(p.getY()).retiraPersonagem();
+                    p.y += 1;
+                    matrizTabuleiro.get(p.getX()).get(p.getY()).adicionaPersonagem(p);
+                }
+                case "S" -> {
+                    matrizTabuleiro.get(p.getX()).get(p.getY()).retiraPersonagem();
+                    p.y -= 1;
+                    matrizTabuleiro.get(p.getX()).get(p.getY()).adicionaPersonagem(p);
+                }
+                case "A" -> {
+                    matrizTabuleiro.get(p.getX()).get(p.getY()).retiraPersonagem();
+                    p.x -= 1;
+                    matrizTabuleiro.get(p.getX()).get(p.getY()).adicionaPersonagem(p);
+                }
+                case "D" -> {
+                    matrizTabuleiro.get(p.getX()).get(p.getY()).retiraPersonagem();
+                    p.x += 1;
+                    matrizTabuleiro.get(p.getX()).get(p.getY()).adicionaPersonagem(p);
+                }
+            }
+        }
     }
 }

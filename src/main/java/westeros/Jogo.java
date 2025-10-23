@@ -7,8 +7,10 @@ import java.util.Scanner;
 public class Jogo {
     Time time1;
     Time time2;
+    Tabuleiro tabuleiro;
 
     public Jogo(){
+        tabuleiro = new Tabuleiro();
         time1 = new Time(false);
         System.out.println("Você deseja jogar contra um computador? [S/N]");
         Scanner s = new Scanner(System.in);
@@ -47,11 +49,29 @@ public class Jogo {
         return personagensJogaveis.get(opc - 1);
     }
 
-    public static void escolherEAgir(Personagem p){
+    public void escolherEAgir(Personagem p){
             //fazer funcao que escolhe a ação do personagem e a executa
         System.out.println("Agindo: ");
         p.imprimeStatus();
+        System.out.println("Escolha a ação: \n [ 1 ] - Mover \n [ 2 ] - Atacar");
+        Scanner s = new Scanner(System.in);
+        int acao = s.nextInt();
+        while(acao < 1 || acao > 2){
+            System.out.println("Ação inválida! Escolha novamente: \n [ 1 ] - Mover \n [ 2 ] - Atacar");
+            acao = s.nextInt();
+        }
 
+        if(acao == 1){
+            tabuleiro.movimentarPersonagem(p);
+            
+        } else {
+            boolean atacou = p.listaAlvosEAtaca(time1);
+            if(!atacou){
+                escolherEAgir(p);
+            }
+        }
+
+        s.close();
     }
 
     protected boolean restaUmTime(){
