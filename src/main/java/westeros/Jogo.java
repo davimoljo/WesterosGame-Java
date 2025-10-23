@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Jogo {
     //aqui é onde o jogo vai rodar efetivamente
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         Tabuleiro tabuleiro = new Tabuleiro();
 
         while(!tabuleiro.restaUmTime()){
@@ -15,7 +15,7 @@ public class Jogo {
 
 
         }
-    }
+    }*/
 
     Time time1;
     Time time2;
@@ -31,11 +31,11 @@ public class Jogo {
             time2 = new Time(false);
     }
 
-    private void movimentarPersonagem(Personagem p){
+    /*private void movimentarPersonagem(Personagem p){
         List<Personagem> todosP= time1.getPersonagens();
         todosP.addAll(time2.getPersonagens());
         p.movimentar(todosP);
-    }
+    }*/
 
     protected static Personagem escolherPersonagem(Time time){
         List<Personagem> personagensJogaveis = new ArrayList<>();

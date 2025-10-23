@@ -27,7 +27,7 @@ public class Time {
                 System.out.println("Selecione uma casa válida!");
                 n = s.nextInt();
             }
-
+            s.nextLine();
             System.out.println("Insira o nome do seu personagem: ");
             String nome = s.nextLine();
             Personagem p = null;
@@ -47,7 +47,7 @@ public class Time {
 
         }
 
-        s.close();
+
     }
 
     private String aleatorizarNome(){
@@ -89,6 +89,7 @@ public class Time {
         for(Personagem p2 : personagens){
             if(p2.equals(p)){
                 personagens.remove(p2);
+                personagensVivos--;
                 return;
             }
         }

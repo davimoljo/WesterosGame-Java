@@ -30,9 +30,11 @@ public class Casinha {
     }
 
     public void imprimeCasinha(){
-        if (temPersonagem())
-            System.out.println("| " + personagem.getNome() + " |");
-        else
-            System.out.println(quadrado);
+        if (temPersonagem()) {
+            char inicial = personagem.getNome().charAt(0);
+            System.out.print("| " + inicial + " |");
+        } else {
+            System.out.print("|   |");
+        }
     }
 }

@@ -20,6 +20,7 @@ public class Tabuleiro {
             for(Casinha elemento : linha){
                 elemento.imprimeCasinha();
             }
+            System.out.println();
         }
     }
 
