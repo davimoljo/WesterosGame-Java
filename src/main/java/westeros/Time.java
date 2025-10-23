@@ -98,9 +98,4 @@ public class Time {
         return personagens;
     }
 
-    protected void resetSelecao(){
-        for (Personagem p : personagens){
-            p.jaSelecionado = false;
-        }
-    }
 }

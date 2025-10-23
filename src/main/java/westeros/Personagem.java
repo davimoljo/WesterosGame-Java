@@ -9,11 +9,8 @@ public class Personagem {
     protected int ataque;
     protected int defesa;
     protected int alcance;
-    protected boolean jaSelecionado;
 
-    public Personagem(){
-        jaSelecionado = false;
-    }
+    public Personagem(){}
 
     @Override
     public boolean equals(Object o){
@@ -21,6 +18,10 @@ public class Personagem {
             return false;
         }
         return this.nome.equals(((Personagem)o).getNome());
+    }
+
+    protected int getAlcance() {
+        return alcance;
     }
 
     String getNome(){
@@ -46,31 +47,58 @@ public class Personagem {
         vida -= (dano - defesa);
     }
 
-    public boolean estaEmAlcance(Personagem p){
-        //Pega a maior distância entre os eixos e retorna verdadeiro se a distância
-        // é menor que o alcance do Personagem
-        int dist = Math.abs(Math.max(p.getX() - this.x, p.getY() - this.y));
-
-        return (dist <= p.alcance);
-    }
-
     public boolean estaMorto(){
         return vida <= 0;
     }
 
-
-
-    public void personagemSelecionado(){
-        jaSelecionado = true;
-    }
-
-    public boolean foiSelecionado(){
-        return jaSelecionado;
-    }
-
     protected void imprimeStatus(){
-        System.out.println(this.getNome() + "(" + this.getClass().getSimpleName() + ")");
-        System.out.println("\tVida: " + this.vida + "\t|| Defesa: " + this.defesa);
-        System.out.println("\tAtaque: " + this.ataque + "\t|| Alcance" + this.alcance);
+        System.out.println(this.getNome() + "(" + this.getClass().getSimpleName() + "): " + "Vida: " + this.vida + " || Defesa: " + this.defesa + " || Ataque: " + this.ataque + " || Alcance" + this.alcance);
+
+    }
+
+    private boolean estaEmAlcance(Personagem alvo){
+        //Pega a maior distância entre os eixos e retorna verdadeiro se a distância
+        // é menor que o alcance do Personagem
+        int dist = Math.max(Math.abs(alvo.getX() - this.getX()), Math.abs(alvo.getY() - this.getY()));
+
+        return (dist <= this.getAlcance());
+    }
+
+    private List<Personagem> getAlvos(Time adversarios){
+        List<Personagem> alvos = new ArrayList<>();
+        for (Personagem alvo : adversarios.getPersonagens()) {
+            if (estaEmAlcance(alvo))
+                alvos.add(alvo);
+        }
+
+        return alvos;
+    }
+
+    protected void listaAlvosEAtaca(Time adversarios){
+        List<Personagem> alvos = getAlvos(adversarios);
+        Scanner sc = new Scanner(System.in);
+        int i = 0;
+
+        if (alvos.isEmpty()){
+            System.out.println("Sem alvos disponíveis");
+            return;
+        }
+
+        System.out.println("Selecione o alvo");
+        for (Personagem alvo : alvos) {
+            i++;
+            System.out.println("[" + i + "] - " + alvo.getNome() + "\n");
+        }
+        int entrada = sc.nextInt();
+        while (entrada < 1 || entrada > alvos.size()){
+            System.out.println("Entrada invalida: selecione um alvo válido");
+            entrada = sc.nextInt();
+        }
+
+        Personagem alvo = alvos.get(entrada);
+        atacar(alvo);
+        if (alvo.estaMorto()){
+            adversarios.eliminaJogador(alvo);
+        }
     }
 }

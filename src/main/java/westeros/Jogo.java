@@ -20,12 +20,12 @@ public class Jogo {
         s.close();
     }
 
-    protected static Personagem escolherPersonagem(Time time){ //Dei uma ajeitada pra deixar a selecao mais dinamica em relacao aos personagens que estao disponiveis para selecao
+    protected static Personagem escolherPersonagem(Time time){
         List<Personagem> personagensJogaveis = new ArrayList<>();
         System.out.println("Escolha um personagem para agir: ");
 
         for (Personagem p : time.getPersonagens()){
-            if(!p.foiSelecionado()){
+            if(!p.estaMorto()){
                 personagensJogaveis.add(p);
             }
         }
