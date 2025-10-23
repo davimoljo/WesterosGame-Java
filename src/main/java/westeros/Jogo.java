@@ -5,18 +5,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Jogo {
-    //aqui é onde o jogo vai rodar efetivamente
-    public static void main(String[] args) {
-        Tabuleiro tabuleiro = new Tabuleiro();
-
-        while(!tabuleiro.restaUmTime()){
-            tabuleiro.imprimirTabuleiro();
-            Personagem personagemAcao1 = escolherPersonagem(tabuleiro.getTime1());
-
-
-        }
-    }
-
     Time time1;
     Time time2;
 
@@ -29,12 +17,7 @@ public class Jogo {
             time2 = new Time(true);
         else
             time2 = new Time(false);
-    }
-
-    private void movimentarPersonagem(Personagem p){
-        List<Personagem> todosP= time1.getPersonagens();
-        todosP.addAll(time2.getPersonagens());
-        p.movimentar(todosP);
+        s.close();
     }
 
     protected static Personagem escolherPersonagem(Time time){ //Dei uma ajeitada pra deixar a selecao mais dinamica em relacao aos personagens que estao disponiveis para selecao
@@ -59,7 +42,7 @@ public class Jogo {
             System.out.println("Seleção inválida!");
             opc = s.nextInt();
         }
-
+        s.close();
         System.out.println(personagensJogaveis.get(opc - 1).getNome() + " selecionado");
         return personagensJogaveis.get(opc - 1);
     }
@@ -68,6 +51,7 @@ public class Jogo {
             //fazer funcao que escolhe a ação do personagem e a executa
         System.out.println("Agindo: ");
         p.imprimeStatus();
+
     }
 
     protected boolean restaUmTime(){

@@ -66,6 +66,7 @@ public class Tabuleiro {
             System.out.println("Movimentando: " + p.getNome() + "\n Movimente-se com W A S D");
             entrada = s.nextLine();
         }
+        s.close();
 
         switch (entrada) {
             case "W", "w" -> {
