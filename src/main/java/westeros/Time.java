@@ -3,6 +3,7 @@ package westeros;
 import java.util.*;
 
 public class Time {
+    private static final Scanner s = new Scanner(System.in); 
     protected List<Personagem> personagens = new ArrayList<>();
     protected int personagensVivos;
     private boolean bot;
@@ -19,7 +20,6 @@ public class Time {
     }
 
     private void selPersonagem(){
-        Scanner s = new Scanner(System.in);
 
         for(int i = 0; i < 3; i++){
             System.out.println("Insira a casa de seu personagem: ");
@@ -50,7 +50,7 @@ public class Time {
 
         }
 
-
+        
     }
 
     private String aleatorizarNome(){

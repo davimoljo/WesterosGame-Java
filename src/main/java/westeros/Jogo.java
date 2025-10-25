@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Jogo {
+    private static final Scanner s = new Scanner(System.in); 
     Time time1;
     Time time2;
     Tabuleiro tabuleiro;
@@ -13,14 +14,17 @@ public class Jogo {
         tabuleiro = new Tabuleiro();
         time1 = new Time(false);
         System.out.println("Você deseja jogar contra um computador? [S/N]");
-        Scanner s = new Scanner(System.in);
         String ans = s.nextLine();
         if(ans.equals("S") || ans.equals("s"))
             time2 = new Time(true);
         else
             time2 = new Time(false);
-        s.close();
+
+        tabuleiro.posicionarTimes(time1, time2);
+        
     }
+
+
 
     protected static Personagem escolherPersonagem(Time time){
         List<Personagem> personagensJogaveis = new ArrayList<>();
@@ -37,14 +41,12 @@ public class Jogo {
             i++;
             System.out.println("[ " + i + " ] " + p.getNome() + "(" + p.getClass().getSimpleName() + ")");
         }
-
-        Scanner s = new Scanner(System.in);
         int opc = s.nextInt();
         while (opc < 1 || opc > i) {
             System.out.println("Seleção inválida!");
             opc = s.nextInt();
         }
-        s.close();
+        
         System.out.println(personagensJogaveis.get(opc - 1).getNome() + " selecionado");
         return personagensJogaveis.get(opc - 1);
     }
@@ -54,7 +56,6 @@ public class Jogo {
         System.out.println("Agindo: ");
         p.imprimeStatus();
         System.out.println("Escolha a ação: \n [ 1 ] - Mover \n [ 2 ] - Atacar");
-        Scanner s = new Scanner(System.in);
         int acao = s.nextInt();
         while(acao < 1 || acao > 2){
             System.out.println("Ação inválida! Escolha novamente: \n [ 1 ] - Mover \n [ 2 ] - Atacar");
@@ -71,7 +72,33 @@ public class Jogo {
             }
         }
 
-        s.close();
+        
+    }
+
+    public void rodarJogo(){
+                System.out.println("\n--- A BATALHA DE WESTEROS COMEÇOU ---");
+        while (!this.restaUmTime()) {
+            tabuleiro.imprimirTabuleiro();
+            System.out.println("\n--- TURNO DO TIME 1 ---");
+            Time time1 = this.getTime1();
+            Personagem p1 = Jogo.escolherPersonagem(time1);
+
+            if (p1 != null) {
+                this.escolherEAgir(p1);
+            }
+            if (this.restaUmTime()) break;
+            tabuleiro.imprimirTabuleiro();
+            if(!time2.isBot()){
+            System.out.println("\n--- TURNO DO TIME 2 ---");
+            Time time2 = this.getTime2();
+            Personagem p2 = Jogo.escolherPersonagem(time2);
+
+            if (p2 != null) {
+                this.escolherEAgir(p2);
+            }
+        }
+        }
+        System.out.println("\nFIM DE JOGO!");
     }
 
     protected boolean restaUmTime(){

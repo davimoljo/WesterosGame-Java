@@ -3,6 +3,7 @@ import java.util.*;
 
 public class Tabuleiro {
 
+    private static final Scanner s = new Scanner(System.in); 
     public static final int tabuleiroOrdem = 10;
     protected List<List<Casinha>> matrizTabuleiro = new ArrayList<>();
 
@@ -51,7 +52,6 @@ public class Tabuleiro {
 
     protected void movimentarPersonagem(Personagem p){
         if (!p.isBot()){
-                    Scanner s = new Scanner(System.in);
         System.out.println("Movimentando: " + p.getNome() + "\n Movimente-se com W A S D");
         String entrada = s.nextLine();
 
@@ -60,7 +60,7 @@ public class Tabuleiro {
             System.out.println("Movimentando: " + p.getNome() + "\n Movimente-se com W A S D");
             entrada = s.nextLine();
         }
-        s.close();
+
 
         switch (entrada) {
             case "W", "w" -> {
@@ -83,7 +83,9 @@ public class Tabuleiro {
                 p.x += 1;
                 matrizTabuleiro.get(p.getX()).get(p.getY()).adicionaPersonagem(p);
             }
+  
         }
+        
         } else {
             Random random = new Random();
             String[] movimentos = {"W", "A", "S", "D"};
@@ -115,6 +117,42 @@ public class Tabuleiro {
                     matrizTabuleiro.get(p.getX()).get(p.getY()).adicionaPersonagem(p);
                 }
             }
+        }
+
+    }
+    public void posicionarTimes(Time time1, Time time2){
+        Random random = new Random();
+        int x;
+        int y;
+
+        for(Personagem p : time1.getPersonagens()){
+            x = random.nextInt(tabuleiroOrdem);
+            y = random.nextInt(tabuleiroOrdem);
+            matrizTabuleiro.get(x).get(y).adicionaPersonagem(p);
+            p.x = x;
+            p.y = y;
+            Casinha verificar = matrizTabuleiro.get(x).get(y);
+            while (verificar.temPersonagem()){
+                x = random.nextInt(tabuleiroOrdem);
+                y = random.nextInt(tabuleiroOrdem);
+                verificar = matrizTabuleiro.get(x).get(y);
+            }
+
+        }
+        for(Personagem p : time2.getPersonagens()){
+            x = random.nextInt(tabuleiroOrdem);
+            y = random.nextInt(tabuleiroOrdem);
+            Casinha verificar = matrizTabuleiro.get(x).get(y);
+            while (verificar.temPersonagem()){
+                x = random.nextInt(tabuleiroOrdem);
+                y = random.nextInt(tabuleiroOrdem);
+                verificar = matrizTabuleiro.get(x).get(y);
+            }
+
+            matrizTabuleiro.get(x).get(y).adicionaPersonagem(p);
+            p.x = x;
+            p.y = y;
+
         }
     }
 }

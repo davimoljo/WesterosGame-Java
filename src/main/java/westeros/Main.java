@@ -1,30 +1,29 @@
 package westeros;
 
+import java.util.Scanner;
+
 public class Main {
-
+    private static final Scanner s = new Scanner(System.in); 
     public static void main(String[] args) {
-        Tabuleiro tabuleiro = new Tabuleiro();
-        Jogo partida = new Jogo();
-        System.out.println("\n--- A BATALHA DE WESTEROS COMEÇOU ---");
-        while (!partida.restaUmTime()) {
-            tabuleiro.imprimirTabuleiro();
-            System.out.println("\n--- TURNO DO TIME 1 ---");
-            Time time1 = partida.getTime1();
-            Personagem p1 = Jogo.escolherPersonagem(time1);
-
-            if (p1 != null) {
-                partida.escolherEAgir(p1);
-            }
-            if (partida.restaUmTime()) break;
-            tabuleiro.imprimirTabuleiro();
-            System.out.println("\n--- TURNO DO TIME 2 ---");
-            Time time2 = partida.getTime2();
-            Personagem p2 = Jogo.escolherPersonagem(time2);
-
-            if (p2 != null) {
-                partida.escolherEAgir(p2);
-            }
+        Menu menu = new Menu();
+        menu.imprimeMenu();
+        int opcao = s.nextInt();
+        while (opcao < 1 || opcao > 4){
+            System.out.println("Opção inválida. Tente novamente.");
+            menu.imprimeMenu();
+            opcao = s.nextInt();
         }
-        System.out.println("\nFIM DE JOGO!");
+
+        if(opcao == 1){
+            Jogo jogo = new Jogo();
+            jogo.rodarJogo();;
+        } else if(opcao == 2){
+            menu.imprimeInstrucoes();
+        } else if(opcao == 3){
+            menu.imprimeCreditos();
+        } else {
+            System.out.println("Saindo do jogo...");
+        }
+        
     }
 }

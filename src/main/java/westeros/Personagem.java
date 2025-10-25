@@ -2,6 +2,7 @@ package westeros;
 import java.util.*;
 
 public class Personagem {
+    private static final Scanner s = new Scanner(System.in); 
     protected String nome;
     protected int x;
     protected int y;
@@ -80,13 +81,13 @@ public class Personagem {
 
     protected boolean listaAlvosEAtaca(Time adversarios){
         List<Personagem> alvos = getAlvos(adversarios);
-        Scanner sc = new Scanner(System.in);
+
         int i = 0;
 
         if (alvos.isEmpty()){
             System.out.println("Sem alvos disponíveis");
 
-            sc.close();
+            
             return false;
         }
 
@@ -95,23 +96,24 @@ public class Personagem {
             i++;
             System.out.println("[" + i + "] - " + alvo.getNome() + "\n");
         }
-        int entrada = sc.nextInt();
+        int entrada = s.nextInt();
         while (entrada < 1 || entrada > alvos.size()){
             System.out.println("Entrada invalida: selecione um alvo válido");
-            entrada = sc.nextInt();
+            entrada = s.nextInt();
         }
 
-        Personagem alvo = alvos.get(entrada);
+        Personagem alvo = alvos.get(entrada - 1);
         atacar(alvo);
         if (alvo.estaMorto()){
             adversarios.eliminaJogador(alvo);
         }
 
-        sc.close();
+        
         return true;
     }
 
     public boolean isBot() {
         return bot;
     }
+
 }
