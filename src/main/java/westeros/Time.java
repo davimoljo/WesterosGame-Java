@@ -2,39 +2,49 @@ package westeros;
 
 import java.util.*;
 
+// Gerencia um time de personagens (seja Humano ou Bot) e seus estados.
 public class Time {
-    private static final Scanner s = new Scanner(System.in); 
-    protected List<Personagem> personagens = new ArrayList<>();
-    protected int personagensVivos;
-    private boolean bot;
+    private List<Personagem> personagens = new ArrayList<>(); // Lista dos personagens do time.
+    private int personagensVivos; // Contador de personagens vivos.
+    private boolean bot; // Flag para identificar se o time é controlado por IA.
 
+    // Construtor: Define se o time é Bot e chama o método de seleção apropriado.
     public Time(boolean bot){
+        this.bot = bot;
         if(!bot){
-            this.bot = false;
-            selPersonagem();
+            selPersonagem(); // Chama a seleção manual para jogadores humanos.
         } else{
-            this.bot = true;
-            aleatorizarSelecao();
+            aleatorizarSelecao(); // Chama a seleção automática para a IA (Bot).
         }
-        personagensVivos = personagens.size();
+        personagensVivos = personagens.size(); // Define a contagem inicial de vivos.
     }
 
+    // Guia o jogador humano na escolha (Casa) e nomeação dos 3 personagens.
     private void selPersonagem(){
-
         for(int i = 0; i < 3; i++){
             System.out.println("Insira a casa de seu personagem: ");
             System.out.println("[ 1 ] Stark \n[ 2 ] Lannister \n[ 3 ] Targaryen");
 
-            int n = s.nextInt();
+            int n = -1; // Loop de validação para a escolha da Casa (1, 2 ou 3).
             while (n < 1 || n > 3){
-                System.out.println("Selecione uma casa válida!");
-                n = s.nextInt();
+                System.out.println("Selecione uma casa válida (1, 2 ou 3):");
+                try {
+                    String entrada = Main.s.nextLine(); // Lê a linha inteira (seguro).
+                    n = Integer.parseInt(entrada);
+                    if (n < 1 || n > 3) {
+                        System.out.println("Opção inválida.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Entrada inválida, digite apenas um número.");
+                    n = -1; // Força o loop a repetir.
+                }
             }
-            s.nextLine();
+
             System.out.println("Insira o nome do seu personagem: ");
-            String nome = s.nextLine();
+            String nome = Main.s.nextLine(); // Lê o nome do personagem.
             Personagem p = null;
 
+            // Instancia o personagem da Casa (Stark, Lannister, Targaryen) escolhida.
             switch (n){
                 case 1:
                     p = new Stark(nome, bot);
@@ -47,61 +57,74 @@ public class Time {
                     break;
             }
             personagens.add(p);
-
         }
-
-        
     }
 
-    private String aleatorizarNome(){
-        List<String> nomesPadrao = new ArrayList<>(List.of(
-                "Aldren", "Brynna", "Caelum", "Draven", "Elyra",
-                "Faelan", "Garruk", "Halric", "Isolde", "Jareth",
-                "Kaelin", "Lyra", "Morthos", "Nerwen", "Orin",
-                "Peregrin", "Quintus", "Rhiannon", "Sylas", "Tamsin",
-                "Ulric", "Vaelis", "Wynne", "Xanric", "Ysolda", "Zephyr"
-        ));
-        Collections.shuffle(nomesPadrao);
-        return nomesPadrao.get(0);
-    }
-
+    // Cria 3 personagens aleatórios para o time do Bot com nomes pré-definidos.
     private void aleatorizarSelecao(){
+        List<String> nomesBot = List.of("Xanric", "Ysolda", "Zephyr");
         Random random = new Random();
+
         for(int i = 0; i < 3; i++){
-            int num = random.nextInt(3);
-            switch(num){
+            int numCasa = i; // Escolhe uma Casa aleatória (0, 1, ou 2).
+            String nomeEscolhido = nomesBot.get(i);
+
+            // Instancia o personagem da Casa aleatória.
+            switch(numCasa){
                 case 0:
-                    personagens.add(new Stark(aleatorizarNome(), bot));
+                    personagens.add(new Stark(nomeEscolhido, bot));
                     break;
                 case 1:
-                    personagens.add(new Lannister(aleatorizarNome(), bot));
+                    personagens.add(new Lannister(nomeEscolhido, bot));
                     break;
                 case 2:
-                    personagens.add(new Targaryen(aleatorizarNome(), bot));
+                    personagens.add(new Targaryen(nomeEscolhido, bot));
                     break;
             }
         }
     }
 
+    // Remove um personagem da lista (geralmente ao morrer) e atualiza a contagem de vivos.
+    protected void eliminaJogador(Personagem p){
+        // O .remove(p) usa o método .equals() do Personagem para encontrar e remover.
+        boolean removido = personagens.remove(p);
+
+        // Se a remoção foi bem-sucedida, decrementa a contagem de vivos.
+        if (removido) {
+            personagensVivos--;
+        }
+    }
+
+    // Reseta o status 'jaSelecionado' de todos os personagens vivos (usado no início de um novo turno).
+    protected void resetSelecao() {
+        for (Personagem p : personagens) {
+            if (!p.estaMorto()) {
+                p.setJaSelecionado(false); // Permite que o personagem jogue de novo.
+            }
+        }
+    }
+
+    // Retorna o próximo personagem vivo que ainda não agiu neste turno.
+    protected Personagem getPersonagemParaAgir() {
+        for (Personagem p : personagens) {
+            if (!p.estaMorto() && !p.isJaSelecionado()) {
+                return p; // Encontrou o próximo personagem apto.
+            }
+        }
+        return null; // Retorna nulo se ninguém mais puder agir neste turno.
+    }
+
+    // Verifica se o time foi derrotado (sem personagens vivos).
     public boolean timeDerrotado(){
         return personagensVivos <= 0;
     }
 
-    protected void eliminaJogador(Personagem p){
-
-        for(Personagem p2 : personagens){
-            if(p2.equals(p)){
-                personagens.remove(p2);
-                personagensVivos--;
-                return;
-            }
-        }
-    }
-
+    // Getter para a lista completa de personagens do time.
     protected List<Personagem> getPersonagens() {
         return personagens;
     }
 
+    // Getter para verificar se este time é controlado por IA (Bot).
     public boolean isBot() {
         return bot;
     }
