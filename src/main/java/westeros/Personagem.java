@@ -12,12 +12,13 @@ public class Personagem {
     protected boolean bot; // Flag se é controlado por IA
     private boolean jaSelecionado; // Flag se já agiu neste turno
     private static int contadorPersonagens = 0; // Contador estático para rastrear personagens criados.
-    private int personagemID = contadorPersonagens++; // ID único para cada personagem.
+    private int personagemID; // ID único do personagem.
 
     // Construtor base: Define se é bot e reseta o status de seleção.
     public Personagem(boolean bot){
         this.bot = bot;
         this.jaSelecionado = false;
+        setPersonagemID(contadorPersonagens++);
     }
 
     // Define o ataque básico (padrão) do personagem, chamando o 'receberDano' do alvo.
@@ -193,5 +194,9 @@ public class Personagem {
 
     public int getPersonagemID() {
         return personagemID;
+    }public void setPersonagemID(int personagemID) {
+        this.personagemID = personagemID;
     }
+
+
 }

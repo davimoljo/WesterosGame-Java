@@ -1,20 +1,20 @@
 package westeros;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 import java.util.*;
+import java.lang.Thread;
 
 // Classe principal que gerencia o estado e o fluxo do jogo.
 public class Jogo {
     Time time1;
     Time time2;
     Tabuleiro tabuleiro;
+    Replay replay = new Replay();
 
     // Construtor: Inicializa o tabuleiro e os dois times (jogador vs bot ou jogador).
     public Jogo() {
         limparTela();
         tabuleiro = new Tabuleiro();
+
         time1 = new Time(false); // Cria o time do jogador humano.
         System.out.println("Você deseja jogar contra um computador? [S/N]");
         String ans = Main.s.nextLine();
@@ -28,9 +28,17 @@ public class Jogo {
 
     // Método principal que controla o loop do jogo, alternando turnos até um time ser derrotado.
     public void rodarJogo() {
+        limparTela();
         System.out.println("\n--- A BATALHA DE WESTEROS COMEÇOU ---");
         int numeroTurno = 1;
         boolean vezDoTime1 = true; // Controla qual time joga.
+
+            try {
+                Thread.sleep(1000); 
+            } 
+            catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
 
         // O loop principal do jogo.
         while (!this.restaUmTime()) {
@@ -47,6 +55,7 @@ public class Jogo {
             for (Personagem p : time2.getPersonagens()) {
                 p.imprimeStatus(); // Chama o método que já existe em Personagem.java
             }
+
             if (vezDoTime1) {
                 // Turno do Time 1 (Humano).
                 System.out.println("\n--- VEZ DO TIME 1 ---");
@@ -59,6 +68,7 @@ public class Jogo {
                 }
             } else {
                 // Turno do Time 2 (Bot ou Humano).
+                limparTela();
                 System.out.println("\n--- VEZ DO TIME 2 ---");
                 Personagem p2;
                 if (time2.isBot()) {
@@ -88,12 +98,18 @@ public class Jogo {
                 time1.resetSelecao();
                 time2.resetSelecao();
             }
+
+            replay.registrarQuadro(tabuleiro);
         }
 
         // Fim de jogo.
         System.out.println("\nFIM DE JOGO!");
         tabuleiro.imprimirTabuleiro();
         declararVencedor();
+        System.out.println("Deseja ver o replay da partida? [S/N]");
+        String respostaReplay = Main.s.nextLine().trim();
+        if (respostaReplay.equalsIgnoreCase("s")) 
+            replay.reproduzir();
     }
 
     // Gerencia o turno de um jogador humano: move obrigatoriamente e depois ataca opcionalmente.
@@ -350,5 +366,7 @@ public class Jogo {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
+
+
 
 }
