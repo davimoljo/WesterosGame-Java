@@ -13,6 +13,7 @@ public class Jogo {
 
     // Construtor: Inicializa o tabuleiro e os dois times (jogador vs bot ou jogador).
     public Jogo() {
+        limparTela();
         tabuleiro = new Tabuleiro();
         time1 = new Time(false); // Cria o time do jogador humano.
         System.out.println("Você deseja jogar contra um computador? [S/N]");
@@ -343,6 +344,11 @@ public class Jogo {
     // Getter simples para o Time 2.
     protected Time getTime2() {
         return time2;
+    }
+
+    public static void limparTela() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
 }

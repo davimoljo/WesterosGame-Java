@@ -29,6 +29,13 @@ public class Casinha {
         return false;
     }
 
+    public int getPersonagemID() {
+        if (temPersonagem()) {
+            return personagem.getPersonagemID();
+        }
+        return -1; // Retorna -1 se não houver personagem
+    }
+
     // Remove o personagem atual desta casinha (seta para null).
     public void retiraPersonagem(){
         personagem = null;
@@ -36,9 +43,14 @@ public class Casinha {
 
     // Imprime a casinha no console (vazia ou com a inicial do personagem).
     public void imprimeCasinha(){
-        if (temPersonagem()) {
+        int id = getPersonagemID();
+        if (temPersonagem() && id < 3) {
             char inicial = personagem.getNome().charAt(0);
-            System.out.print("| " + inicial + " |");
+            System.out.print("\u001B[34m| " + inicial + " |\u001B[0m");
+        }else if(temPersonagem() && id <= 6){
+            char inicial = personagem.getNome().charAt(0);
+            System.out.print("\u001B[31m| " + inicial + " |\u001B[0m");
+
         } else {
             System.out.print(quadrado);
         }
