@@ -3,10 +3,11 @@ package westeros;
 import java.util.*;
 
 public class Memoria {
-    Tabuleiro quadros;
-    List<Personagem> time1;
-    List<Personagem> time2;
-    Memoria(Tabuleiro t, Time t1, Time t2) {
+    private Tabuleiro quadros;
+    private List<Personagem> time1;
+    private List<Personagem> time2;
+    private String log;
+    Memoria(Tabuleiro t, Time t1, Time t2, String log) {
         time1 = new ArrayList<>();
         time2 = new ArrayList<>();
         Tabuleiro copia = new Tabuleiro();
@@ -56,9 +57,11 @@ public class Memoria {
 
             time2.add(tempP);
         }
+        this.log = log;
     }
 
     List<Personagem> getTime1(){return  time1;}
     List<Personagem> getTime2(){return  time2;}
     Tabuleiro getTabuleiro(){return  quadros;}
+    String getLog(){return  log;}
 }

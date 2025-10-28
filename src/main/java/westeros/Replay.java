@@ -9,8 +9,8 @@ public class Replay {
         sets =  new ArrayList<>();
     }
 
-    public void registrarQuadro(Tabuleiro t, Time time1, Time  time2){
-        Memoria set = new Memoria(t, time1, time2);
+    public void registrarQuadro(Tabuleiro t, Time time1, Time  time2, String log){
+        Memoria set = new Memoria(t, time1, time2, log);
         sets.add(set);
     }
 
@@ -21,6 +21,7 @@ public class Replay {
             System.out.println("---------------------------------------------------------------------------");
             System.out.println("Turno: " + turno + " || Rodada: " +  rodada);
             set.getTabuleiro().imprimirTabuleiro();
+            System.out.println(set.getLog());
             System.out.println("Status time 1:");
             for (Personagem p : set.getTime1()){
                 System.out.println(p.getNome() + " (" + p.getClass().getSimpleName() + "): Vida: " + p.getVida() + " || Defesa: " + p.getDefesa());

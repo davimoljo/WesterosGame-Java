@@ -50,13 +50,13 @@ public class Personagem {
     }
 
     // Gerencia a lógica de ataque: ataca automático (1 alvo) ou pede ao jogador (múltiplos).
-    protected boolean listaAlvosEAtaca(Time adversarios, Scanner s) {
+    protected Personagem listaAlvosEAtaca(Time adversarios, Scanner s) {
         List<Personagem> alvos = getAlvos(adversarios);
 
         // Regra 1: Nenhum alvo no alcance.
         if (alvos.isEmpty()) {
             System.out.println("Sem alvos disponíveis no alcance.");
-            return false;
+            return null;
         }
 
         // Regra 2: Apenas um alvo no alcance (ataque automático).
@@ -69,7 +69,7 @@ public class Personagem {
                 System.out.println(alvoUnico.getNome() + " foi derrotado!");
                 adversarios.eliminaJogador(alvoUnico);
             }
-            return true;
+            return alvoUnico;
         }
 
         // Regra 3: Múltiplos alvos (jogador escolhe).
@@ -104,7 +104,7 @@ public class Personagem {
             System.out.println(alvoEscolhido.getNome() + " foi derrotado!");
             adversarios.eliminaJogador(alvoEscolhido);
         }
-        return true; // Ataque ocorreu.
+        return alvoEscolhido; // Ataque ocorreu.
     }
 
     // Verifica se a vida do personagem chegou a zero ou menos.

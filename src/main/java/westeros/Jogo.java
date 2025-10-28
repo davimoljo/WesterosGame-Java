@@ -45,6 +45,7 @@ public class Jogo {
 
         // O loop principal do jogo.
         while (!this.restaUmTime()) {
+            String log = null;
             System.out.println("\n===== TURNO " + numeroTurno + " =====");
             tabuleiro.imprimirTabuleiro();
             System.out.println("--- STATUS DOS TIMES ---");
@@ -66,7 +67,7 @@ public class Jogo {
                 if (p1 == null) {
                     System.out.println("Time 1 nao tem personagens para agir.");
                 } else {
-                    this.escolherEAgir(p1, time2); // Ação humana.
+                    log = this.escolherEAgir(p1, time2); // Ação humana.
                     p1.setJaSelecionado(true); // Marca que o personagem já agiu.
                 }
             } else {
@@ -85,9 +86,9 @@ public class Jogo {
                 } else {
                     // Executa a ação (Bot ou Humano).
                     if (time2.isBot()) {
-                        executarAcaoBot(p2, time1);
+                        log = executarAcaoBot(p2, time1);
                     } else {
-                        this.escolherEAgir(p2, time1);
+                        log = this.escolherEAgir(p2, time1);
                     }
                     p2.setJaSelecionado(true);
                 }
@@ -102,7 +103,7 @@ public class Jogo {
                 time2.resetSelecao();
             }
 
-            replay.registrarQuadro(tabuleiro, time1, time2);
+            replay.registrarQuadro(tabuleiro, time1, time2, log);
         }
 
         // Fim de jogo.
@@ -116,7 +117,7 @@ public class Jogo {
     }
 
     // Gerencia o turno de um jogador humano: move obrigatoriamente e depois ataca opcionalmente.
-    public void escolherEAgir(Personagem p, Time timeInimigo) {
+    private String escolherEAgir(Personagem p, Time timeInimigo) {
         System.out.println("Agindo com: " + p.getNome());
         p.imprimeStatus();
 
@@ -136,20 +137,24 @@ public class Jogo {
 
             if (querAtacar.equalsIgnoreCase("s")) {
                 // Chama o método de ataque do personagem.
-                boolean atacou = p.listaAlvosEAtaca(timeInimigo, Main.s);
-                if (!atacou) {
+                Personagem atacado = p.listaAlvosEAtaca(timeInimigo, Main.s);
+                if (atacado == null) {
                     System.out.println(p.getNome() + " decidiu nao atacar ou ocorreu um erro.");
+                    return (p.getNome() + " se moveu e não atacou (erro ou negou atacar)");
                 }
+                return (p.getNome() + " se moveu e atacou " + atacado.getNome());
             } else {
                 System.out.println(p.getNome() + " decidiu nao atacar.");
+                return (p.getNome() + " se moveu e não atacou (negou atacar)");
             }
         } else {
             System.out.println(p.getNome() + " moveu, mas nao ha alvos no alcance.");
+            return (p.getNome() + " se moveu e não atacou (sem alvos no alcance)");
         }
     }
 
     // Define o Bot: move-se e ataca o inimigo mais próximo no alcance.
-    private void executarAcaoBot(Personagem botPersonagem, Time timeInimigo) {
+    private String executarAcaoBot(Personagem botPersonagem, Time timeInimigo) {
         System.out.println("Bot " + botPersonagem.getNome() + " esta agindo...");
         botPersonagem.imprimeStatus();
 
@@ -269,8 +274,10 @@ public class Jogo {
                     tabuleiro.removerPersonagemDoTabuleiro(alvoParaAtacar); // Remove do tabuleiro.
                 }
             }
+            return (botPersonagem.getNome() + " (Bot) se moveu e atacou " + alvoParaAtacar.getNome());
         } else {
             System.out.println("Bot " + botPersonagem.getNome() + " terminou o turno sem alvos no alcance.");
+            return (botPersonagem.getNome() + " (Bot) se moveu e não atacou (sem alvos no alcance)");
         }
     }
 
