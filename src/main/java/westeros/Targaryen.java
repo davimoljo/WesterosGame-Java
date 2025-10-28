@@ -13,6 +13,10 @@ public class Targaryen extends Personagem{
         alcance = 3;
     }
 
+    public Targaryen(Personagem p){
+        super(p);
+    }
+
     // Sobrescrita do 'atacar' com a habilidade especial Targaryen (dano ignora defesa).
     @Override
     public void atacar(Personagem p){

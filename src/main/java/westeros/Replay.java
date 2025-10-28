@@ -4,43 +4,40 @@ import java.util.List;
 import java.lang.Thread;
 
 public class Replay {
-    List<Tabuleiro> quadros;
+    List<Memoria> sets;
     public Replay(){
-        quadros = new ArrayList<>();
+        sets =  new ArrayList<>();
     }
 
-    public void registrarQuadro(Tabuleiro t){
-        Tabuleiro copia = new Tabuleiro();
-        for(int i = 0; i < Tabuleiro.tabuleiroOrdem; i++){
-            for(int j = 0; j < Tabuleiro.tabuleiroOrdem; j++){
-                Casinha original = t.matrizTabuleiro.get(i).get(j);
-                Casinha nova = copia.matrizTabuleiro.get(i).get(j);
-                if(original.temPersonagem()){
-                    Personagem pOriginal = original.getPersonagem();
-                    Personagem pCopia = null;
-                    if (pOriginal instanceof Stark)
-                        pCopia = new Stark(pOriginal.getNome(), pOriginal.isBot());
-                    else if (pOriginal instanceof Lannister)
-                        pCopia = new Lannister(pOriginal.getNome(), pOriginal.isBot());
-                    else if (pOriginal instanceof Targaryen)
-                        pCopia = new Targaryen(pOriginal.getNome(), pOriginal.isBot());
-
-                if(pCopia != null){
-                    pCopia.setPersonagemID(pOriginal.getPersonagemID());
-                    pCopia.setX(pOriginal.getX());
-                    pCopia.setY(pOriginal.getY());
-                    nova.adicionaPersonagem(pCopia);
-            }
-        }
-    }
-}
-        quadros.add(copia);
-
+    public void registrarQuadro(Tabuleiro t, Time time1, Time  time2){
+        Memoria set = new Memoria(t, time1, time2);
+        sets.add(set);
     }
 
     public void reproduzir(){
-        for(Tabuleiro quadro:quadros){
-            quadro.imprimirTabuleiro();
+        int turno = 1;
+        int rodada = 1;
+        for(Memoria set : sets){
+            System.out.println("---------------------------------------------------------------------------");
+            System.out.println("Turno: " + turno + " || Rodada: " +  rodada);
+            set.getTabuleiro().imprimirTabuleiro();
+            System.out.println("Status time 1:");
+            for (Personagem p : set.getTime1()){
+                System.out.println(p.getNome() + " (" + p.getClass().getSimpleName() + "): Vida: " + p.getVida() + " || Defesa: " + p.getDefesa());
+            }
+            System.out.println("Status time 2:");
+            for  (Personagem p : set.getTime2()){
+                System.out.println(p.getNome() + " (" + p.getClass().getSimpleName() + "): Vida: " + p.getVida() + " || Defesa: " + p.getDefesa());
+            }
+            System.out.println("---------------------------------------------------------------------------");
+            if (rodada == 2)
+                turno++;
+
+            rodada++;
+
+            if (rodada > 2)
+                rodada = 1;
+
             try {
                 Thread.sleep(1000); 
             } 

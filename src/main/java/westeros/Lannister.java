@@ -13,6 +13,10 @@ public class Lannister extends Personagem {
         alcance = 2;
     }
 
+    public Lannister(Personagem p){
+        super(p);
+    }
+
     // Sobrescrita do 'atacar' com a habilidade especial Lannister (15% mais dano).
     @Override
     public void atacar(Personagem p){

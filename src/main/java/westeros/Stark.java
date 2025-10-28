@@ -13,6 +13,10 @@ public class Stark extends Personagem{
         alcance = 1;
     }
 
+    public Stark(Personagem p){
+        super(p);
+    }
+
     // Sobrescrita do 'receberDano' com a habilidade especial Stark (toma 20% menos dano).
     @Override
     public void receberDano(int dano){

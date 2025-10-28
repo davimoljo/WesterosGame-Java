@@ -14,7 +14,10 @@ public class Jogo {
     public Jogo() {
         limparTela();
         tabuleiro = new Tabuleiro();
-
+        System.out.println("Casas: ");
+        System.out.println("Stark:\n\tVida: 60 || Ataque: 20 || Defesa: 10 || Alcance: 1\n\tHabilidade Especial: -20% de Dano (Redução de Dano)" );
+        System.out.println("Lannister:\n\tVida: 50 || Ataque: 20 || Defesa: 10 || Alcance: 2\n\tHabilidade Especial: +15% de Dano (Dano Líquido)" );
+        System.out.println("Targaryen:\n\tVida: 45 || Ataque: 20 || Defesa: 10 || Alcance: 3\n\tHabilidade Especial: Ignora Defesa Base (Dano Bruto)" );
         time1 = new Time(false); // Cria o time do jogador humano.
         System.out.println("Você deseja jogar contra um computador? [S/N]");
         String ans = Main.s.nextLine();
@@ -99,7 +102,7 @@ public class Jogo {
                 time2.resetSelecao();
             }
 
-            replay.registrarQuadro(tabuleiro);
+            replay.registrarQuadro(tabuleiro, time1, time2);
         }
 
         // Fim de jogo.

@@ -21,6 +21,19 @@ public class Personagem {
         setPersonagemID(contadorPersonagens++);
     }
 
+    public Personagem(Personagem p){
+        this.nome = p.getNome();
+        this.vida = p.getVida();
+        this.x = p.getX();
+        this.y = p.getY();
+        this.ataque = p.ataque;
+        this.defesa = p.defesa;
+        this.alcance = p.alcance;
+        this.bot = p.bot;
+        this.jaSelecionado = p.jaSelecionado;
+        this.personagemID = p.getPersonagemID();
+    }
+
     // Define o ataque básico (padrão) do personagem, chamando o 'receberDano' do alvo.
     public void atacar(Personagem p){
         p.receberDano(ataque);
@@ -64,7 +77,7 @@ public class Personagem {
         int i = 0;
         for (Personagem alvo : alvos) {
             i++;
-            System.out.println("[" + i + "] - " + alvo.getNome());
+            System.out.println("[" + i + "] - " + alvo.getNome() + " (Casa: " + alvo.getClass().getSimpleName() + " Vida: " + alvo.getVida() + " || Defesa: " + alvo.getDefesa() + ")");
         }
 
         // Loop de validação da entrada do usuário
