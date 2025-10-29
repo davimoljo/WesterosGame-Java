@@ -62,10 +62,10 @@ public class Main {
                         if (resposta == 1) {
                             jogo.getReplay().reproduzir();
                         } else if (resposta == 2) {
-                            jogo = new Jogo(); // novos times
+                            jogo = new Jogo();
                             jogo.rodarJogo();
                         } else if (resposta == 3) {
-                            emReplayMenu = false; // volta ao menu principal (sem recursão)
+                            emReplayMenu = false;
                         } else if (resposta == 4) {
                             executando = false;
                             emReplayMenu = false;
