@@ -1,6 +1,12 @@
-package westeros;
+package westeros.jogo;
 
 import java.util.*;
+
+import westeros.Main;
+import westeros.personagens.Lannister;
+import westeros.personagens.Personagem;
+import westeros.personagens.Stark;
+import westeros.personagens.Targaryen;
 
 // Gerencia um time de personagens (seja Humano ou Bot) e seus estados.
 public class Time {
@@ -85,7 +91,7 @@ public class Time {
     }
 
     // Remove um personagem da lista (geralmente ao morrer) e atualiza a contagem de vivos.
-    protected void eliminaJogador(Personagem p){
+    public void eliminaJogador(Personagem p){
         // O .remove(p) usa o método .equals() do Personagem para encontrar e remover.
         boolean removido = personagens.remove(p);
 
@@ -120,7 +126,7 @@ public class Time {
     }
 
     // Getter para a lista completa de personagens do time.
-    protected List<Personagem> getPersonagens() {
+    public List<Personagem> getPersonagens() {
         return personagens;
     }
 

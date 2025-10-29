@@ -1,5 +1,7 @@
-package westeros;
+package westeros.personagens;
 import java.util.*;
+
+import westeros.jogo.Time;
 
 public class Personagem {
     protected String nome;
@@ -50,7 +52,7 @@ public class Personagem {
     }
 
     // Gerencia a lógica de ataque: ataca automático (1 alvo) ou pede ao jogador (múltiplos).
-    protected Personagem listaAlvosEAtaca(Time adversarios, Scanner s) {
+    public Personagem listaAlvosEAtaca(Time adversarios, Scanner s) {
         List<Personagem> alvos = getAlvos(adversarios);
 
         // Regra 1: Nenhum alvo no alcance.
@@ -139,12 +141,12 @@ public class Personagem {
     }
 
     // Imprime os atributos atuais do personagem (Vida, Ataque, etc.) no console.
-    protected void imprimeStatus(){
+    public void imprimeStatus(){
         System.out.println(this.getNome() + "(" + this.getClass().getSimpleName() + "): " + "Vida: " + this.vida + " || Defesa: " + this.defesa + " || Ataque: " + this.ataque + " || Alcance: " + this.alcance);
     }
 
     // Retorna uma lista de todos os inimigos vivos que estão no alcance de ataque.
-    protected List<Personagem> getAlvos(Time adversarios) {
+    public List<Personagem> getAlvos(Time adversarios) {
         List<Personagem> alvos = new ArrayList<>();
         for (Personagem alvo : adversarios.getPersonagens()) {
             if (!alvo.estaMorto() && estaEmAlcance(alvo))
@@ -171,17 +173,17 @@ public class Personagem {
     }
 
     // Getter para o alcance do personagem.
-    protected int getAlcance() {
+    public int getAlcance() {
         return alcance;
     }
 
     // Getter para o nome do personagem.
-    String getNome(){
+    public String getNome(){
         return nome;
     }
 
     // Getter para a coordenada X.
-    int getX(){
+    public int getX(){
         return x;
     }
 
@@ -191,7 +193,7 @@ public class Personagem {
     }
 
     // Getter para a coordenada Y.
-    int getY(){
+    public int getY(){
         return y;
     }
 

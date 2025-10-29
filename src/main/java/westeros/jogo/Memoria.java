@@ -1,6 +1,11 @@
-package westeros;
+package westeros.jogo;
 
 import java.util.*;
+
+import westeros.personagens.Lannister;
+import westeros.personagens.Personagem;
+import westeros.personagens.Stark;
+import westeros.personagens.Targaryen;
 
 public class Memoria {
     private Tabuleiro quadros;

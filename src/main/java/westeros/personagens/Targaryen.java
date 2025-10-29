@@ -1,10 +1,10 @@
-package westeros;
+package westeros.personagens;
 
 // Define a classe 'Targaryen', uma subclasse de 'Personagem' com atributos e habilidades únicas.
 public class Targaryen extends Personagem{
 
     // Construtor: Define os atributos específicos (stats) para um personagem Targaryen.
-    Targaryen(String nome, boolean bot){
+    public Targaryen(String nome, boolean bot){
         super(bot); // Chama o construtor da classe pai (Personagem).
         this.nome = nome;
         vida = 45;

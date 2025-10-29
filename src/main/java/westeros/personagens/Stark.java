@@ -1,4 +1,4 @@
-package westeros;
+package westeros.personagens;
 
 // Define a classe 'Stark', uma subclasse de 'Personagem' com atributos e habilidades únicas.
 public class Stark extends Personagem{

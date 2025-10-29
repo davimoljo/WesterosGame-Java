@@ -1,5 +1,7 @@
-package westeros;
+package westeros.jogo;
 import java.util.*;
+
+import westeros.personagens.Personagem;
 
 // Gerencia a grade (matriz) do jogo, controlando posições e movimentos.
 public class Tabuleiro {

@@ -1,4 +1,4 @@
-package westeros;
+package westeros.jogo;
 
 public class Menu {
     public Menu(){}

@@ -1,4 +1,6 @@
-package westeros;
+package westeros.jogo;
+
+import westeros.personagens.Personagem;
 
 // Representa um único "quadrado" (tile) no tabuleiro do jogo.
 public class Casinha {

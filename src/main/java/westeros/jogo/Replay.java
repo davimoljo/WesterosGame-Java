@@ -1,6 +1,9 @@
-package westeros;
+package westeros.jogo;
 import java.util.ArrayList;
 import java.util.List;
+
+import westeros.personagens.Personagem;
+
 import java.lang.Thread;
 
 public class Replay {

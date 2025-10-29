@@ -2,6 +2,9 @@ package westeros;
 
 import java.util.Scanner;
 
+import westeros.jogo.Jogo;
+import westeros.jogo.Menu;
+
 public class Main {
 
     public static final Scanner s = new Scanner(System.in);
@@ -60,7 +63,9 @@ public class Main {
                         }
 
                         if (resposta == 1) {
+                            Jogo.limparTela();
                             jogo.getReplay().reproduzir();
+                            Jogo.limparTela();
                         } else if (resposta == 2) {
                             jogo = new Jogo();
                             jogo.rodarJogo();

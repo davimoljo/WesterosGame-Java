@@ -1,4 +1,4 @@
-package westeros;
+package westeros.personagens;
 
 // Define a classe 'Lannister', uma subclasse de 'Personagem' com atributos e habilidades únicas.
 public class Lannister extends Personagem {

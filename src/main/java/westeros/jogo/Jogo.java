@@ -1,6 +1,10 @@
-package westeros;
+package westeros.jogo;
 
 import java.util.*;
+
+import westeros.Main;
+import westeros.personagens.Personagem;
+
 import java.lang.Thread;
 
 // Classe principal que gerencia o estado e o fluxo do jogo.
