@@ -110,10 +110,6 @@ public class Jogo {
         System.out.println("\nFIM DE JOGO!");
         tabuleiro.imprimirTabuleiro();
         declararVencedor();
-        System.out.println("Deseja ver o replay da partida? [S/N]");
-        String respostaReplay = Main.s.nextLine().trim();
-        if (respostaReplay.equalsIgnoreCase("s")) 
-            replay.reproduzir();
     }
 
     // Gerencia o turno de um jogador humano: move obrigatoriamente e depois ataca opcionalmente.
@@ -377,6 +373,9 @@ public class Jogo {
         System.out.flush();
     }
 
+    public Replay getReplay() {
+        return this.replay;
+    }
 
 
 }
