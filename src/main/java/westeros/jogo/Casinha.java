@@ -56,6 +56,9 @@ public class Casinha {
             char inicial = personagem.getNome().charAt(0);
             System.out.print("\u001B[31m| " + inicial + " |\u001B[0m");
 
+        }else if (temPersonagem()){
+            char inicial = personagem.getNome().charAt(0);
+            System.out.print("| " + inicial + " |");
         } else {
             System.out.print(quadrado);
         }

@@ -209,8 +209,13 @@ public class Personagem {
 
     public int getPersonagemID() {
         return personagemID;
-    }public void setPersonagemID(int personagemID) {
+    }
+    public void setPersonagemID(int personagemID) {
         this.personagemID = personagemID;
+    }
+
+    public static void reiniciarContador(){
+        contadorPersonagens = 0;
     }
 
 

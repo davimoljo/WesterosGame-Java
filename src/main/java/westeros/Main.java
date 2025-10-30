@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import westeros.jogo.Jogo;
 import westeros.jogo.Menu;
+import westeros.personagens.Personagem;
 
 public class Main {
 
@@ -64,11 +65,13 @@ public class Main {
                             continue;
                         }
 
+
                         if (resposta == 1) {
                             Jogo.limparTela();
                             jogo.getReplay().reproduzir();
                             Jogo.limparTela();
                         } else if (resposta == 2) {
+                            Personagem.reiniciarContador(); //reiniciar contador de personagens para lógica de impressão
                             jogo = new Jogo();
                             jogo.rodarJogo();
                         } else if (resposta == 3) {
