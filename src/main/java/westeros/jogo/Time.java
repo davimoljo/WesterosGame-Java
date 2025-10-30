@@ -69,7 +69,6 @@ public class Time {
     // Cria 3 personagens aleatórios para o time do Bot com nomes pré-definidos.
     private void aleatorizarSelecao(){
         List<String> nomesBot = List.of("Xanric", "Ysolda", "Zephyr");
-        Random random = new Random();
 
         for(int i = 0; i < 3; i++){
             int numCasa = i; // Escolhe uma Casa aleatória (0, 1, ou 2).
@@ -108,16 +107,6 @@ public class Time {
                 p.setJaSelecionado(false); // Permite que o personagem jogue de novo.
             }
         }
-    }
-
-    // Retorna o próximo personagem vivo que ainda não agiu neste turno.
-    protected Personagem getPersonagemParaAgir() {
-        for (Personagem p : personagens) {
-            if (!p.estaMorto() && !p.isJaSelecionado()) {
-                return p; // Encontrou o próximo personagem apto.
-            }
-        }
-        return null; // Retorna nulo se ninguém mais puder agir neste turno.
     }
 
     // Verifica se o time foi derrotado (sem personagens vivos).
