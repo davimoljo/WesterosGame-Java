@@ -20,8 +20,8 @@ public class Stark extends Personagem{
     // Sobrescrita do 'receberDano' com a habilidade especial Stark (toma 20% menos dano).
     @Override
     public void receberDano(int dano){
-        // Aplica o dano (BUG: 'dano - defesa' pode curar; BUG 2: imprime 'dano' bruto)
-        int danoReal = (int)((dano - defesa) * 0.8);
+        // Aplica o dano com a redução de 20%.
+        int danoReal = Math.max(0, (int)((dano - defesa) * 0.8));
         vida -= danoReal;
 
         // Imprime o feedback de dano (NOTA: está imprimindo o dano bruto, não o dano real sofrido)
