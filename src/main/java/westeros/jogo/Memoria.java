@@ -12,10 +12,12 @@ public class Memoria {
     private final List<Personagem> time1;
     private final List<Personagem> time2;
     private final String log;
+    // Definição da memória com todos os atributos de um instante do jogo
     Memoria(Tabuleiro t, Time t1, Time t2, String log) {
         time1 = new ArrayList<>();
         time2 = new ArrayList<>();
         Tabuleiro copia = new Tabuleiro();
+        // copiando o tabuleiro
         for(int i = 0; i < Tabuleiro.tabuleiroOrdem; i++){
             for(int j = 0; j < Tabuleiro.tabuleiroOrdem; j++){
                 Casinha original = t.matrizTabuleiro.get(i).get(j);
@@ -65,6 +67,7 @@ public class Memoria {
         this.log = log;
     }
 
+    //getters
     List<Personagem> getTime1(){return  time1;}
     List<Personagem> getTime2(){return  time2;}
     Tabuleiro getTabuleiro(){return  quadros;}

@@ -12,13 +12,14 @@ public class Main {
     public static void main(String[] args) {
         boolean executando = true;
 
-
+        //função main, onde o jogo roda efetivamente
 
         while (executando) {
             Jogo.limparTela();
             Menu menu = new Menu();
             menu.imprimeMenu();
 
+            // Lê a opção do usuário com validação.
             int opcao = -1;
             try {
                 String entrada = s.nextLine();
@@ -40,6 +41,7 @@ public class Main {
             }
 
             switch (opcao) {
+                // Opções do menu principal
                 case 1 -> {
                     Jogo jogo = new Jogo();
                     jogo.rodarJogo();
@@ -79,19 +81,19 @@ public class Main {
                         }
                     }
                 }
-
+                // Instruções
                 case 2 -> {
                     menu.imprimeInstrucoes();
                     System.out.println("\nPressione ENTER para voltar ao menu.");
                     s.nextLine();
                 }
-
+                // Creditos
                 case 3 -> {
                     menu.imprimeCreditos();
                     System.out.println("\nPressione ENTER para voltar ao menu.");
                     s.nextLine();
                 }
-
+                // Sair do jogo
                 case 4 -> {
                     System.out.println("Saindo do jogo...");
                     executando = false;

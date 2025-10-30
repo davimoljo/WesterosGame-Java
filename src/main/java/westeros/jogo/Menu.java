@@ -1,6 +1,8 @@
 package westeros.jogo;
 
 public class Menu {
+
+    //funções print que imprimem os letreiros do menu, instruções e créditos
     public Menu(){}
     public void imprimeMenu(){
         imprimeTitulo();

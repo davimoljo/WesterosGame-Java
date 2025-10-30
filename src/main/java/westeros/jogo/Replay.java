@@ -13,11 +13,13 @@ public class Replay {
     }
 
     public void registrarQuadro(Tabuleiro t, Time time1, Time  time2, String log){
+        //função que registra o quadro com um elemento memória, que armazena todas as ações de um instante
         Memoria set = new Memoria(t, time1, time2, log);
         sets.add(set);
     }
 
     public void reproduzir(){
+        // função que reproduz o replay, imprimindo o tabuleiro e o log de cada instante
         int turno = 1;
         int rodada = 1;
         for(Memoria set : sets){
@@ -26,6 +28,7 @@ public class Replay {
             set.getTabuleiro().imprimirTabuleiro();
             System.out.println(set.getLog());
             System.out.println("Status time 1:");
+            // imrpimindo status de cada personagem
             for (Personagem p : set.getTime1()){
                 System.out.println(p.getNome() + " (" + p.getClass().getSimpleName() + "): Vida: " + p.getVida() + " || Defesa: " + p.getDefesa());
             }
