@@ -76,7 +76,6 @@ public class Jogo {
                 }
             } else {
                 // Turno do Time 2 (Bot ou Humano).
-                limparTela();
                 System.out.println("\n--- VEZ DO TIME 2 ---");
                 Personagem p2;
                 if (time2.isBot()) {
@@ -101,6 +100,7 @@ public class Jogo {
             }
 
             // Alterna a vez.
+            limparTela();
             vezDoTime1 = !vezDoTime1;
             if (vezDoTime1) {
                 numeroTurno++; // Incrementa o número do turno quando volta ao Time 1.

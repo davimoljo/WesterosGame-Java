@@ -1,5 +1,6 @@
 package westeros.jogo;
 import java.util.*;
+import westeros.Main;
 
 import westeros.personagens.Personagem;
 
@@ -27,16 +28,15 @@ public class Tabuleiro {
 
     // Controla o movimento de um personagem (seja Humano via W-A-S-D ou Bot aleatório).
     protected void movimentarPersonagem(Personagem p) {
-        Scanner scanner = new Scanner(System.in);
         if (!p.isBot()) {
             // Lógica de movimento para jogador Humano.
             System.out.println("Movimentando: " + p.getNome() + "\n Movimente-se com W A S D");
-            String entrada = scanner.nextLine();
+            String entrada = Main.s.nextLine();
 
             while (!movimentoValido(entrada, p)) {
                 System.out.println("Movimento invalido");
                 System.out.println("Movimentando: " + p.getNome() + "\n Movimente-se com W A S D");
-                entrada = scanner.nextLine();
+                entrada = Main.s.nextLine();
             }
 
             // Atualiza a matriz: retira da casa antiga, atualiza P, adiciona na casa nova.
