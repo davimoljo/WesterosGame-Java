@@ -8,10 +8,10 @@ import westeros.personagens.Stark;
 import westeros.personagens.Targaryen;
 
 public class Memoria {
-    private Tabuleiro quadros;
-    private List<Personagem> time1;
-    private List<Personagem> time2;
-    private String log;
+    private final Tabuleiro quadros;
+    private final List<Personagem> time1;
+    private final List<Personagem> time2;
+    private final String log;
     Memoria(Tabuleiro t, Time t1, Time t2, String log) {
         time1 = new ArrayList<>();
         time2 = new ArrayList<>();

@@ -26,7 +26,8 @@ public class Tabuleiro {
     }
 
     // Controla o movimento de um personagem (seja Humano via W-A-S-D ou Bot aleatório).
-    protected void movimentarPersonagem(Personagem p, Scanner scanner) {
+    protected void movimentarPersonagem(Personagem p) {
+        Scanner scanner = new Scanner(System.in);
         if (!p.isBot()) {
             // Lógica de movimento para jogador Humano.
             System.out.println("Movimentando: " + p.getNome() + "\n Movimente-se com W A S D");

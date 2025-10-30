@@ -12,7 +12,7 @@ import westeros.personagens.Targaryen;
 public class Time {
     private List<Personagem> personagens = new ArrayList<>(); // Lista dos personagens do time.
     private int personagensVivos; // Contador de personagens vivos.
-    private boolean bot; // Flag para identificar se o time é controlado por IA.
+    private final boolean bot; // Flag para identificar se o time é controlado por IA.
 
     // Construtor: Define se o time é Bot e chama o método de seleção apropriado.
     public Time(boolean bot){

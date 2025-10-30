@@ -91,6 +91,8 @@ public class Jogo {
                     // Executa a ação (Bot ou Humano).
                     if (time2.isBot()) {
                         log = executarAcaoBot(p2, time1);
+                        System.out.println("Pressione enter para continuar.");
+                        Main.s.nextLine();
                     } else {
                         log = this.escolherEAgir(p2, time1);
                     }
@@ -123,7 +125,7 @@ public class Jogo {
 
         // Passo 1: Movimento obrigatório.
         System.out.println("Executando movimento...");
-        tabuleiro.movimentarPersonagem(p, Main.s);
+        tabuleiro.movimentarPersonagem(p);
 
         System.out.println("Tabuleiro apos o movimento:");
         tabuleiro.imprimirTabuleiro();
